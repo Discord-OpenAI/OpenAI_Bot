@@ -5,11 +5,20 @@ from discord import app_commands
 import openai
 from openai import Completion
 import asyncio
+import logging
 
 bot_token = secrets.bot_token
 api_key = secrets.api_key
 
 openai.api_key = api_key
+
+# Logger
+logger = logging.getLogger("openaibot")
+logger.setLevel(logging.DEBUG)
+fh = logging.FileHandler("openaibot.log", "w", "utf-8")
+formatter = logging.Formatter("%(asctime)s - %(message)s")
+fh.setFormatter(formatter)
+logger.addHandler(fh)
 
 intents = discord.Intents.default()
 activity = discord.Activity(name='CoCFire somehow get me to work', type=discord.ActivityType.watching)
