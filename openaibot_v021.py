@@ -6,9 +6,8 @@ import openai
 from openai import Completion
 import asyncio
 
-bot_token = 
-api_key = 
-#owner_id = '1019152307688050710'
+bot_token = secrets.bot_token
+api_key = secrets.api_key
 
 openai.api_key = api_key
 
@@ -20,7 +19,7 @@ bot = commands.Bot(intents=intents,activity=activity,command_prefix="/")
 @bot.event
 async def on_ready():
     # Initial message
-    channel = bot.get_channel(914720296165077046)
+    channel = bot.get_channel(1050996354085830748)
     await channel.send("Initialized openaibot_v021.py")
 
 @bot.tree.command()
@@ -34,7 +33,9 @@ async def openai(interaction: discord.Interaction, prompt: str):
         temperature=temperature,
     )
     # Relaying to Discord
+    debugchan = bot.get_channel(1050996354085830748)
     await interaction.response.send_message(completion["choices"][0]["text"])
+    await debugchan.send(completion)
 
     
 bot.run(bot_token)
