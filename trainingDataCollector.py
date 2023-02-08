@@ -46,13 +46,13 @@ async def getFile(name: str):
 
     return filename
     
-async def logPrompt(filename: str, formatted: bool, prompt: str):
+async def logPrompt(filename: str, formatted: bool, prompt: str, output: str):
     
     """
 
     Logs a prompt to a given file for later review
     filename: string, name of the file to log to, meant for use with the getFile function
-    formatted: boolean, whether or not to preformat the prompts
+    formatted: boolean, whether or not to preformat the prompts. If they are preformatted, outputs will not be logged.
     prompt: string, the prompt to log
 
     """
@@ -68,6 +68,9 @@ async def logPrompt(filename: str, formatted: bool, prompt: str):
     if formatted == True:
         with open(filepath, 'a') as f:
             f.write('\n{"prompt": "'+f'{prompt}'+'", "completion": ""}')
+    elif output == 'null':
+        with open(filepath, 'a') as f:
+            f.write(f'\n[PROMPT: {prompt}] [OUTPUT: NULL]')
     else:
         with open(filepath, 'a') as f:
-            f.write(f'\n{prompt}')
+            f.write(f'\n[PROMPT: {prompt}] [OUTPUT: {output}]')
